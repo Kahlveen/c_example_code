@@ -6,4 +6,5 @@ archive/*
 */cmake_install.cmake
 pcre_example
 */Makefile
+main
 
