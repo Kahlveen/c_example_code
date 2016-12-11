@@ -1,0 +1,9 @@
+*.swp
+*.swo
+archive/*
+*/CMakeCache.txt
+*/CMakeFiles/*
+*/cmake_install.cmake
+pcre_example
+*/Makefile
+
