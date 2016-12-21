@@ -54,7 +54,7 @@ int main()
 	//IN_MOVED_TO -> file moved into directory
 	int flags =  IN_ISDIR | IN_CLOSE_WRITE |IN_CREATE | IN_MOVED_TO	;
 
-	inotifyFd = inotify_init();	//for blocking
+	//	inotifyFd = inotify_init();	//for blocking
 	inotifyFd = inotify_init1(IN_NONBLOCK);	//for non-blocking
 	if(inotifyFd == -1)
 	{
@@ -67,15 +67,6 @@ int main()
 	
 	wd = inotify_add_watch(inotifyFd, "f2", flags);
 	printf("Watch %s on %d\n","f2",wd);
-
-	struct timespec t;
-	t.tv_sec = 0;		
-	t.tv_nsec = 0;		//No timeout
-
-	fd_set readfds;
-	FD_ZERO(&readfds);
-	FD_SET(inotifyFd,&readfds);
-	printf("inotifyFd: %d\n",inotifyFd);
 
 	while(true)
 	{
