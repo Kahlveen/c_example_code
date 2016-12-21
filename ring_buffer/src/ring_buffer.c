@@ -1,17 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-
-typedef struct _ring_buffer_t{
-	void* buffer;
-	void* buffer_end;
-	size_t capacity; 		//max number of ITEMs in buffer
-	size_t sz;					//sz of 1 item
-	size_t count;				//number of items in the buffer
-	void* head;
-	void* tail;
-}ring_buffer_t;
+#include "ring_buffer.h"
 
 /*
  * Return 0 if success, -1 if cannot allocate memory
@@ -75,28 +62,4 @@ int ringbuf_popfront(ring_buffer_t* rb, void* item)
 	return 0;
 }
 
-int main()
-{
-	int item;
-	ring_buffer_t rb;
-	ringbuf_init(&rb,5,sizeof(int));
-
-	int i = 0;
-	for(; i < 6; i++){
-		if(ringbuf_pushback(&rb,&i))
-			printf("Overwritten!\n");
-	}
-
-	for(i = 0; i < 10; i++){
-		if(ringbuf_popfront(&rb,&item)){
-			if(errno == ENOMEM)
-				printf("Cannot allocate memory\n");
-			printf("Nothing in ringbuf\n");
-			break;
-		}
-
-		printf("Item popped: %d\n",item);
-	}
-	return 0;
-}
 
