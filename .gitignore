@@ -7,4 +7,6 @@ archive/*
 pcre_example
 */Makefile
 main
-
+basic_unix_domain/*
+ncurses/src/ncurses_demo
+unix_domain_*
