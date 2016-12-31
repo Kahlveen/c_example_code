@@ -30,7 +30,6 @@ int main(int argc, char **argv)
 		exit(1);
 	}
 
-
 	struct sockaddr_un addr;
 	char buf[100];
 	char *cli_socket = "/tmp/cli_test";
@@ -57,9 +56,12 @@ int main(int argc, char **argv)
 		exit(-1);
 	}
 
-	int size_buf = 0;
-	if( (num_read = read(fd,&size_buf,sizeof(size_buf))) > 0)
-		printf("Size_buf: %d\n",size_buf);
+	struct info_t info;
+	if( (num_read = read(fd,&info,sizeof(info))) > 0){
+		printf("name: %s\n",info.name);	
+		printf("Uptime: %d\n", info.uptime);
+		printf("Someval: %d\n",info.some_val);
+	}
 
 	return 0;
 }

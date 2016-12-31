@@ -6,7 +6,7 @@
 #include <string.h>
 #include "cli.h"
 
-int main()
+int main(int argc, char** argv)
 {
 	struct sockaddr_un addr;
 	char buf[100];
@@ -43,11 +43,16 @@ int main()
 		int size_buf = 0;
 		enum command cmd;
 
+		struct info_t info;
+		snprintf(info.name,sizeof(info.name),"%s",argv[0]);
+		info.uptime = time(NULL);
+		info.some_val = 999;
+
 		if( ( num_read = read(cl, &cmd, sizeof(cmd))) > 0) {
 			if(cmd == INFO){
 				printf("INFO cmd\n");
 				size_buf = 10;
-				if(write(cl,&size_buf, sizeof(size_buf)) != sizeof(size_buf)){
+				if(write(cl,&info, sizeof(info)) != sizeof(info)){
 					printf("Write error");
 				}
 			}
